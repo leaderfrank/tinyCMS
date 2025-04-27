@@ -1,5 +1,7 @@
 # tinyCMS
 
+![Alt Text](https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExbnppMDhpZjVmODd0bTJmODJmN2xmamgzdmczYnp2ZjRxaDc2eWhxNyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/huV07d7bkLlORl98mw/giphy.gif)
+
 tinyCMS is a simple **offline customer management system** built with **Nuxt**, **Nuxt UI**, **SQLite (compiled to WebAssembly)** for the frontend, and **Tauri** for the desktop backend.  
 It allows you to manage customers efficiently both on the web and as a native desktop app.
 
