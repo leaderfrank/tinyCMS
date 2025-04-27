@@ -55,13 +55,7 @@ For deployment, refer to the [Nuxt deployment documentation](https://nuxt.com/do
 
 To run tinyCMS as a desktop app:
 
-1. Install Tauri CLI:
-
-```bash
-npm add -D @tauri-apps/cli@latest
-```
-
-2. Initialize Tauri:
+1. Initialize Tauri:
 
 ```bash
 npx tauri init
@@ -69,11 +63,19 @@ npx tauri init
 
 Follow the prompts to complete the setup.
 
-3. Run the desktop app in development mode:
+2. Run the desktop app in development mode:
 
 ```bash
 npx tauri dev
 ```
+
+3. Build the desktop app for production:
+
+```bash
+npx tauri build
+```
+
+This will generate a native executable for your platform (e.g., `.exe`, `.dmg`, etc.).
 
 ## Learn More
 
