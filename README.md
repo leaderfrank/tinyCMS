@@ -1,75 +1,83 @@
-# Nuxt UI Starter
+# tinyCMS
 
-Look at [Nuxt docs](https://nuxt.com/docs/getting-started/introduction) and [Nuxt UI docs](https://ui.nuxt.com) to learn more.
+tinyCMS is a simple **offline customer management system** built with **Nuxt**, **Nuxt UI**, **SQLite (compiled to WebAssembly)** for the frontend, and **Tauri** for the desktop backend.  
+It allows you to manage customers efficiently both on the web and as a native desktop app.
+
+## Tech Stack
+
+- [Nuxt](https://nuxt.com/)
+- [Nuxt UI](https://ui.nuxt.com/)
+- [Tauri](https://tauri.app/)
+- SQLite (via WebAssembly)
+
+## Prerequisites
+
+- [Node.js](https://nodejs.org/) (latest LTS version recommended)
+- [Rust](https://www.rust-lang.org/tools/install) (required for Tauri)
 
 ## Setup
 
-Make sure to install the dependencies:
+Install project dependencies:
 
 ```bash
-# npm
 npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
 ```
 
-## Development Server
+> You can also use `pnpm`, `yarn`, or `bun` if preferred.
 
-Start the development server on `http://localhost:3000`:
+## Development (Web Version)
+
+Start the Nuxt development server:
 
 ```bash
-# npm
 npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
 
-## Production
+This will launch the app at [http://localhost:3000](http://localhost:3000).
 
-Build the application for production:
+## Production (Web Version)
+
+Build the app for production:
 
 ```bash
-# npm
 npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
 ```
 
-Locally preview production build:
+Preview the production build locally:
 
 ```bash
-# npm
 npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+For deployment, refer to the [Nuxt deployment documentation](https://nuxt.com/docs/getting-started/deployment).
+
+## Tauri Desktop App Setup
+
+To run tinyCMS as a desktop app:
+
+1. Install Tauri CLI:
+
+```bash
+npm add -D @tauri-apps/cli@latest
+```
+
+2. Initialize Tauri:
+
+```bash
+npx tauri init
+```
+
+Follow the prompts to complete the setup.
+
+3. Run the desktop app in development mode:
+
+```bash
+npx tauri dev
+```
+
+## Learn More
+
+- [Nuxt Documentation](https://nuxt.com/docs/getting-started/introduction)
+- [Nuxt UI Documentation](https://ui.nuxt.com)
+- [Tauri Documentation](https://tauri.app/v1/guides/)
+```
