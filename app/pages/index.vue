@@ -50,6 +50,31 @@
     number: "",
     customerId: "",
   });
+  const vEnterToNext = {
+    mounted: (el, binding) => {
+      el.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" && !e.shiftKey) {
+          e.preventDefault();
+
+          const form = el.closest("form") || el.closest(".modal-content");
+          if (!form) return;
+
+          const focusableElements = Array.from(
+            form.querySelectorAll('input, select, textarea, button:not([type="hidden"])')
+          ).filter((element) => !element.disabled && element.offsetParent !== null);
+
+          const currentIndex = focusableElements.indexOf(document.activeElement);
+          const isLastElement = currentIndex === focusableElements.length - 1;
+
+          if (binding.value && isLastElement) {
+            binding.value();
+          } else if (!isLastElement) {
+            focusableElements[currentIndex + 1].focus();
+          }
+        }
+      });
+    },
+  };
 
   const customerColumns: TableColumn<Customer>[] = [
     {
@@ -324,6 +349,29 @@
       isImporting.value = false;
     }
   }
+
+  // Focus the first input when modals open
+  watch(isAddCustomerOpen, (open) => {
+    if (open) {
+      nextTick(() => {
+        const firstInput = document.querySelector(".modal-content input");
+        if (firstInput) {
+          (firstInput as HTMLElement).focus();
+        }
+      });
+    }
+  });
+
+  watch(isAddInvoiceOpen, (open) => {
+    if (open) {
+      nextTick(() => {
+        const firstInput = document.querySelector(".modal-content input");
+        if (firstInput) {
+          (firstInput as HTMLElement).focus();
+        }
+      });
+    }
+  });
 </script>
 
 <template>
@@ -530,13 +578,13 @@
     <template #body>
       <UForm :state="customerForm" @submit="saveCustomer" class="flex flex-wrap gap-4">
         <UFormGroup label="Name" name="name">
-          <UInput v-model="customerForm.name" placeholder="Customer name" required />
+          <UInput autofocus v-model="customerForm.name" placeholder="Customer name" required v-enter-to-next />
         </UFormGroup>
         <UFormGroup label="Phone" name="phone">
-          <UInput v-model="customerForm.phone" placeholder="Phone number" required />
+          <UInput v-model="customerForm.phone" placeholder="Phone number" required v-enter-to-next />
         </UFormGroup>
         <UFormGroup label="Date" name="date">
-          <UInput v-model="customerForm.date" type="date" required />
+          <UInput v-model="customerForm.date" type="date" required v-enter-to-next="saveCustomer" />
         </UFormGroup>
       </UForm>
     </template>
@@ -552,10 +600,10 @@
     <template #body>
       <UForm :state="invoiceForm" @submit="saveInvoice" class="flex flex-wrap gap-4">
         <UFormGroup label="Invoice Number" name="number">
-          <UInput v-model="invoiceForm.number" placeholder="Invoice number" required />
+          <UInput autofocus v-model="invoiceForm.number" placeholder="Invoice number" required v-enter-to-next />
         </UFormGroup>
         <UFormGroup label="Date" name="date">
-          <UInput v-model="invoiceForm.date" type="date" required />
+          <UInput v-model="invoiceForm.date" type="date" required v-enter-to-next="saveInvoice" />
         </UFormGroup>
       </UForm>
     </template>
@@ -566,7 +614,7 @@
   <UModal
     v-model:open="isDeleteConfirmOpen"
     :title="deleteType === 'customer' ? 'Delete Customer' : 'Delete Invoice'"
-    :ui="{ width: 'sm:max-w-md', footer: 'flex justify-end gap-2' }">
+    :ui="{ width: 'sm:max-w-md', footer: 'flex flex-wrap justify-between items-center gap-4' }">
     <template #body>
       <UForm v-if="deleteType === 'invoice'" :state="invoiceForm" @submit="confirmDelete" class="flex flex-wrap gap-4">
         <UFormGroup label="Invoice Number" name="number">
@@ -586,11 +634,18 @@
       </UForm>
     </template>
     <template #footer>
-      <div class="text-2xl font-bold tracking-widest text-center text-red-600">
+      <div class="text-2xl font-bold text-red-600">
         {{ deleteCode }}
       </div>
-      <UInput v-model="userInputCode" class="w-full" placeholder="Enter the code above" />
-      <UButton size="lg" color="error" variant="solid" label="Delete" @click="confirmDelete" />
+      <UForm @submit="confirmDelete" class="flex gap-4">
+        <UInput
+          autofocus
+          v-model="userInputCode"
+          class="w-full"
+          placeholder="Enter the code above"
+          v-enter-to-next="confirmDelete" />
+        <UButton size="lg" color="error" variant="solid" label="Delete" @click="confirmDelete" />
+      </UForm>
     </template>
   </UModal>
 </template>
