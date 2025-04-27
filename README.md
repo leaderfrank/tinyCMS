@@ -80,4 +80,3 @@ npx tauri dev
 - [Nuxt Documentation](https://nuxt.com/docs/getting-started/introduction)
 - [Nuxt UI Documentation](https://ui.nuxt.com)
 - [Tauri Documentation](https://tauri.app/v1/guides/)
-```
